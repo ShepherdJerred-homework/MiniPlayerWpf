@@ -193,17 +193,15 @@ namespace MiniPlayerWpf {
             if (songIdComboBox.SelectedItem != null) {
                 Console.WriteLine("Load song " + songIdComboBox.SelectedItem);
                 var songId = Convert.ToInt32(songIdComboBox.SelectedItem);
-                var table = musicDataSet.Tables["song"];
 
-                // Only one row should be selected
-                foreach (var row in table.Select("id=" + songId)) {
-                    titleTextBox.Text = row["title"].ToString();
-                    artistTextBox.Text = row["artist"].ToString();
-                    albumTextBox.Text = row["album"].ToString();
-                    genreTextBox.Text = row["genre"].ToString();
-                    lengthTextBox.Text = row["length"].ToString();
-                    filenameTextBox.Text = row["filename"].ToString();
-                }
+                Song song = musicLib.GetSong(songId);
+
+                titleTextBox.Text = song.Title;
+                artistTextBox.Text = song.Artist;
+                albumTextBox.Text = song.Album;
+                genreTextBox.Text = song.Genre;
+                lengthTextBox.Text = song.Length;
+                filenameTextBox.Text = song.Filename;
             }
         }
     }

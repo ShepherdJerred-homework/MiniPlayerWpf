@@ -47,7 +47,25 @@ namespace MiniPlayerWpf {
 
         // Return a Song for the given song ID or null if no song was not found.
         public Song GetSong(int songId) {
-            return null;
+            var table = musicDataSet.Tables["song"];
+
+            var rows = table.Select("id=" + songId);
+
+            if (rows.Length > 0) {
+                // Only one row should be selected
+                Song song = new Song();
+                var row = rows.First();
+                song.Title = row["title"].ToString();
+                song.Artist = row["artist"].ToString();
+                song.Album = row["album"].ToString();
+                song.Genre = row["genre"].ToString();
+                song.Length = row["length"].ToString();
+                song.Filename = row["filename"].ToString();
+                return song;
+            }
+            else {
+                return null;
+            }
         }
 
         // Update the given song with the given song ID.  Returns true if the song

@@ -69,6 +69,7 @@
       <DependentUpon>music.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="MusicLib.cs" />
     <Compile Include="Song.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

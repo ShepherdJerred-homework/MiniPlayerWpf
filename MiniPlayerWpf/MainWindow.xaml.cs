@@ -22,7 +22,8 @@ namespace MiniPlayerWpf {
 
             try {
                 musicLib = new MusicLib();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 MessageBox.Show("Error loading file: " + e.Message);
             }
 
@@ -114,7 +115,7 @@ namespace MiniPlayerWpf {
             song.Filename = filenameTextBox.Text;
             song.Length = lengthTextBox.Text;
             song.Genre = genreTextBox.Text;
-            
+
             // Now that the id has been set, add it to the combo box
             songIdComboBox.IsEnabled = true;
             int id = musicLib.AddSong(song);
@@ -147,23 +148,7 @@ namespace MiniPlayerWpf {
                 var songId = songIdComboBox.SelectedItem.ToString();
                 Console.WriteLine("Deleting song " + songId);
 
-                // Search the primary key for the selected song and delete it from 
-                // the song table
-                var table = musicDataSet.Tables["song"];
-                table.Rows.Remove(table.Rows.Find(songId));
-
-                // Remove from playlist_song every occurance of songId.
-                // Add rows to a separate list before deleting because we'll get an exception
-                // if we try to delete more than one row while looping through table.Rows
-
-                var rows = new List<DataRow>();
-                table = musicDataSet.Tables["playlist_song"];
-                foreach (DataRow row in table.Rows)
-                    if (row["song_id"].ToString() == songId.ToString())
-                        rows.Add(row);
-
-                foreach (var row in rows)
-                    row.Delete();
+                musicLib.DeleteSong(Convert.ToInt32(songId));
 
                 // Remove the song from the list box and select the next item
                 (songIdComboBox.ItemsSource as ObservableCollection<string>).Remove(
@@ -194,7 +179,7 @@ namespace MiniPlayerWpf {
         }
 
         private void showDataButton_Click(object sender, RoutedEventArgs e) {
-            PrintAllTables();
+            musicLib.PrintAllTables();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e) {

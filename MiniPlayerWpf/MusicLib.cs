@@ -67,7 +67,8 @@ namespace MiniPlayerWpf {
                     row["filename"] = song.Filename;
                 }
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -75,7 +76,33 @@ namespace MiniPlayerWpf {
         // Delete a song given the song's ID. Return true if the song was  
         // successfully deleted, false if the song ID was not found.
         public bool DeleteSong(int songId) {
-            return true;
+            var table = musicDataSet.Tables["song"];
+
+            var query = table.Select("id=" + songId);
+
+            if (query.Length > 0) {
+                // Search the primary key for the selected song and delete it from 
+                // the song table
+                table.Rows.Remove(table.Rows.Find(songId));
+                // Remove from playlist_song every occurance of songId.
+                // Add rows to a separate list before deleting because we'll get an exception
+                // if we try to delete more than one row while looping through table.Rows
+                var rows = new List<DataRow>();
+                table = musicDataSet.Tables["playlist_song"];
+                foreach (DataRow row in table.Rows) {
+                    if (row["song_id"].ToString() == songId.ToString()) {
+                        rows.Add(row);
+                    }
+                }
+
+                foreach (var row in rows) {
+                    row.Delete();
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         // Save the song database to the music.xml file

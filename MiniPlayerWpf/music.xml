@@ -4,9 +4,8 @@
     <id>1</id>
     <title>Classical Masterpieces</title>
     <artist>Ode To Joy</artist>
-    <album />
+    <album></album>
     <filename>C:\mymusic\ode_to_joy.mp3</filename>
-    <length>20</length>
     <genre>Classical</genre>
   </song>
   <song>
@@ -61,15 +60,6 @@
     <album>The Suburbs</album>
     <filename>C:\Users\fmccown\Music\iTunes\iTunes Media\Music\Arcade Fire\The Suburbs\15 Sprawl II (Mountains Beyond Mount.m4a</filename>
     <genre>Indie rock</genre>
-  </song>
-  <song>
-    <id>9</id>
-    <title>Kansas City (Re-Recorded / Remastered)</title>
-    <artist>Various Artists</artist>
-    <album>The Greatest 1 Hit Wonders (Re-Recorded / Remastered Versions)</album>
-    <filename>C:\temp\Kansas-City.mp3</filename>
-    <length>2:21</length>
-    <genre>Pop</genre>
   </song>
   <playlist>
     <name>Cool stuff</name>

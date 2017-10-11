@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MiniPlayerWpf {
-    class MusicLib {
+    public class MusicLib {
         private DataSet musicDataSet;
 
         public EnumerableRowCollection<string> SongIds {
@@ -41,6 +41,14 @@ namespace MiniPlayerWpf {
             // Add the selected file to the song table
             var table = musicDataSet.Tables["song"];
             var row = table.NewRow();
+
+            row["title"] = s.Title;
+            row["artist"] = s.Artist;
+            row["album"] = s.Album;
+            row["filename"] = s.Filename;
+            row["length"] = s.Length;
+            row["genre"] = s.Genre;
+
             table.Rows.Add(row);
             return Convert.ToInt32(row["id"]);
         }
@@ -54,18 +62,18 @@ namespace MiniPlayerWpf {
             if (rows.Length > 0) {
                 // Only one row should be selected
                 Song song = new Song();
-                var row = rows.First();
-                song.Title = row["title"].ToString();
-                song.Artist = row["artist"].ToString();
-                song.Album = row["album"].ToString();
-                song.Genre = row["genre"].ToString();
-                song.Length = row["length"].ToString();
-                song.Filename = row["filename"].ToString();
-                return song;
+                foreach (var row in rows) {
+                    song.Id = songId;
+                    song.Title = row["title"].ToString();
+                    song.Artist = row["artist"].ToString();
+                    song.Album = row["album"].ToString();
+                    song.Genre = row["genre"].ToString();
+                    song.Length = row["length"].ToString();
+                    song.Filename = row["filename"].ToString();
+                    return song;
+                }
             }
-            else {
-                return null;
-            }
+            return null;
         }
 
         // Update the given song with the given song ID.  Returns true if the song

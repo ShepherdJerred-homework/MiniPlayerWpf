@@ -1,15 +1,12 @@
 ﻿using System;
-using MiniPlayerWpf;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MiniPlayerWpf;
 
-namespace MusicLibTests
-{
+namespace MiniPlayerWpfTest {
     [TestClass]
-    public class MusicLibUnitTest
-    {
-        private Song defaultSong = new Song
-        {
+    public class MusicLibUnitTest {
+        private Song defaultSong = new Song {
             Id = 9,
             Artist = "Bob",
             Album = "Fire",
@@ -20,8 +17,7 @@ namespace MusicLibTests
         };
 
         [TestMethod]
-        public void TestSongIds()
-        {
+        public void TestSongIds() {
             MusicLib musicLib = new MusicLib();
             var songIds = new List<string>(musicLib.SongIds);
 
@@ -30,8 +26,7 @@ namespace MusicLibTests
 
             // Make sure all IDs but 4 are present
             int idNum = 1;
-            foreach (string id in songIds)
-            {
+            foreach (string id in songIds) {
                 // There is no ID 4
                 if (idNum == 4)
                     idNum++;
@@ -42,8 +37,7 @@ namespace MusicLibTests
         }
 
         [TestMethod]
-        public void AddSongTest()
-        {
+        public void AddSongTest() {
             MusicLib musicLib = new MusicLib();
 
             // ID auto-increments
@@ -57,8 +51,7 @@ namespace MusicLibTests
         }
 
         [TestMethod]
-        public void DeleteSongTest()
-        {
+        public void DeleteSongTest() {
             MusicLib musicLib = new MusicLib();
 
             // Delete a song that already exists
@@ -71,8 +64,7 @@ namespace MusicLibTests
             Assert.IsNull(s, "Returned song should be null because it doesn't exist");
         }
 
-        public void DeleteMissingSongTest()
-        {
+        public void DeleteMissingSongTest() {
             MusicLib musicLib = new MusicLib();
 
             // Delete a song that does not exist
@@ -82,19 +74,17 @@ namespace MusicLibTests
         }
 
         [TestMethod]
-        public void GetSongTest()
-        {
+        public void GetSongTest() {
             MusicLib musicLib = new MusicLib();
 
             // Add the default song and then retrieve it
             int songId = musicLib.AddSong(defaultSong);
             Song song = musicLib.GetSong(songId);
-            Assert.AreEqual(defaultSong, song);            
+            Assert.AreEqual(defaultSong, song);
         }
 
         [TestMethod]
-        public void GetMissingSongTest()
-        {
+        public void GetMissingSongTest() {
             MusicLib musicLib = new MusicLib();
 
             // Get a song that doesn't exist
@@ -104,8 +94,7 @@ namespace MusicLibTests
         }
 
         [TestMethod]
-        public void UpdateSongTest()
-        {
+        public void UpdateSongTest() {
             MusicLib musicLib = new MusicLib();
 
             // Update a song's title
@@ -120,8 +109,7 @@ namespace MusicLibTests
         }
 
         [TestMethod]
-        public void UpdateMissingSongTest()
-        {
+        public void UpdateMissingSongTest() {
             MusicLib musicLib = new MusicLib();
 
             // Try to update a song with a bad ID
